@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "format": "prettier --check '**/*.{js,json,md,ts,yml,yaml}'",
+    "format:fix": "prettier --write '**/*.{js,json,md,ts,yml,yaml}'"
   },
   "keywords": [],
   "author": "Joram Ruitenschild",

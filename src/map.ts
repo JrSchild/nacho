@@ -1,4 +1,4 @@
-import { TaskElement, TaskIterable } from "./common/types";
+import { TaskElement, TaskIterable } from './common/types';
 
 /**
  * Returns an iterator that consumes the previousIterator and process each

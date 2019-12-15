@@ -1,13 +1,10 @@
-import {
-  Pipeable,
-  TaskElement,
-  TaskIterable,
-  TaskRunner,
-} from './types';
+import { Pipeable, TaskElement, TaskIterable, TaskRunner } from './types';
 
 export const createPipeable = (
-  handler: (...tasks: TaskElement<unknown, unknown>[]) => TaskRunner<unknown, unknown>,
-): Pipeable['handler'] => ({ handler }).handler;
+  handler: (
+    ...tasks: TaskElement<unknown, unknown>[]
+  ) => TaskRunner<unknown, unknown>,
+): Pipeable['handler'] => ({ handler }.handler);
 
 /**
  * Pipes together a list of tasks, starting with an initial iterator.
