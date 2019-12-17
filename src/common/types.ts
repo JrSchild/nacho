@@ -1,7 +1,6 @@
-export type TaskIterable<Type> = AsyncIterable<Type> | Iterable<Type>;
+export type TaskIterable<Type = unknown> = AsyncIterable<Type> | Iterable<Type>;
 
-// TODO: Add default = unknown to these
-export type Task<InContext, OutContext> = (
+export type Task<InContext = unknown, OutContext = unknown> = (
   previousIterator: TaskIterable<InContext>,
 ) => TaskIterable<OutContext>;
 
