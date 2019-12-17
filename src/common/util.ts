@@ -7,10 +7,9 @@ export const createPipeable = (
 /**
  * Pipes together a list of tasks, starting with an initial iterator.
  */
-export const chainTaskIterators = (
+export const chainTasks = ([firstTask, ...tasks]: Task[]): ((
   startIterator: TaskIterable,
-  [firstTask, ...tasks]: Task[],
-): TaskIterable =>
+) => TaskIterable) => (startIterator: TaskIterable): TaskIterable =>
   tasks.reduce(
     (previousIterator: TaskIterable, nextTask: Task) =>
       nextTask(previousIterator),
