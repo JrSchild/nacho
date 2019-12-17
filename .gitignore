@@ -1,1 +1,24 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cache files
+.cache
+*.cache
+
+# Runtime environment supports npm an Yarn lockfiles. all other lock files are
+# ignored because npm is used.
+pnpm-lock.yaml
+yarn.lock
+
+# Dependency directories
 node_modules
+
+# MacOS-specific files
+.DS_Store
+
+# Build output
+lib
