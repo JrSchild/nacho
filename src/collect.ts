@@ -1,14 +1,14 @@
-import { TaskIterable } from './common/types';
+import { TaskIterator } from './common/types';
 
 export const collect = async <OutContext>(
-  iterator: TaskIterable<OutContext>,
+  taskIterator: TaskIterator<OutContext>,
 ): Promise<OutContext[]> => {
-  const results: OutContext[] = [];
+  const taskResults: OutContext[] = [];
 
   // Start pulling all the data and collect the result.
-  for await (const result of iterator) {
-    results.push(result);
+  for await (const taskResult of taskIterator) {
+    taskResults.push(taskResult);
   }
 
-  return results;
+  return taskResults;
 };

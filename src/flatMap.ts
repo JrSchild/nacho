@@ -1,9 +1,9 @@
-import { Task, TaskIterable } from './common/types';
+import { Task, TaskIterator } from './common/types';
 
 export const flatMap = <InContext, OutContext>(
   handle: (context: InContext) => Promise<OutContext> | OutContext,
 ): Task<InContext[], OutContext> => (
-  previousIterator: TaskIterable<InContext[]>,
+  previousIterator: TaskIterator<InContext[]>,
 ) => ({
   async *[Symbol.asyncIterator]() {
     for await (const taskResult of previousIterator) {
