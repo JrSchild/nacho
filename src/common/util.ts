@@ -1,4 +1,4 @@
-import { Pipeable, Task, TaskIterable } from './types';
+import { Pipeable, Task, TaskIterator } from './types';
 
 export const createPipeable = (
   handler: (...tasks: Task[]) => Task,
@@ -8,10 +8,10 @@ export const createPipeable = (
  * Pipes together a list of tasks, starting with an initial iterator.
  */
 export const chainTasks = ([firstTask, ...tasks]: Task[]): ((
-  startIterator: TaskIterable,
-) => TaskIterable) => (startIterator: TaskIterable): TaskIterable =>
+  startIterator: TaskIterator,
+) => TaskIterator) => (startIterator: TaskIterator): TaskIterator =>
   tasks.reduce(
-    (previousIterator: TaskIterable, nextTask: Task) =>
+    (previousIterator: TaskIterator, nextTask: Task) =>
       nextTask(previousIterator),
     firstTask(startIterator),
   );

@@ -1,8 +1,8 @@
-export type TaskIterable<Type = unknown> = AsyncIterable<Type> | Iterable<Type>;
+export type TaskIterator<Type = unknown> = AsyncIterable<Type> | Iterable<Type>;
 
 export type Task<InContext = unknown, OutContext = unknown> = (
-  previousIterator: TaskIterable<InContext>,
-) => TaskIterable<OutContext>;
+  previousIterator: TaskIterator<InContext>,
+) => TaskIterator<OutContext>;
 
 export interface Pipeable {
   handler<Out0, Out1>(task1: Task<Out0, Out1>): Task<Out0, Out1>;
