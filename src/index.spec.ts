@@ -1,4 +1,4 @@
-import { collect, compose, flatMap, flatten, map } from './';
+import { collect, compose, flatMap, flatten, map, tryCatch } from './';
 
 const delay = (delay: number) =>
   new Promise(resolve => setTimeout(() => resolve(), delay));
@@ -137,6 +137,29 @@ describe('Composes functions', () => {
       { number: 68 },
       { number: 69 },
       { number: 70 },
+    ]);
+  });
+
+  it.only('try catches the tasks', async (): Promise<void> => {
+    const pipeline = compose(
+      map((context: number) => ({ number: context })),
+      tryCatch(
+        map(context => [
+          { number: context.number + 1 },
+          { number: context.number + 2 },
+          { number: context.number + 3 },
+        ]),
+      ),
+      map(context => context),
+      // flatten(),
+    );
+
+    const result = await collect(pipeline([12, 34, 67]));
+
+    expect(result).toMatchObject([
+      [{ number: 13 }, { number: 14 }, { number: 15 }],
+      [{ number: 35 }, { number: 36 }, { number: 37 }],
+      [{ number: 68 }, { number: 69 }, { number: 70 }],
     ]);
   });
 });
