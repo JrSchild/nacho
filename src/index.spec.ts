@@ -1,4 +1,4 @@
-import { collect, compose, flatMap, flatten, map, tryCatch } from './';
+import { collect, compose, flatMap, flatten, map, tap, tryCatch } from './';
 
 const delay = (delay: number) =>
   new Promise(resolve => setTimeout(() => resolve(), delay));
@@ -149,9 +149,14 @@ describe('Composes functions', () => {
           { number: context.number + 2 },
           { number: context.number + 3 },
         ]),
+        tap(context => {
+          if (context[1].number === 69) {
+            // throw new Error('This failed');
+          }
+        }),
+        flatten()
       ),
       map(context => context),
-      // flatten(),
     );
 
     const result = await collect(pipeline([12, 34, 67]));
