@@ -1,4 +1,4 @@
-import { TaskElement, TaskIterable } from './common/types';
+import { Task, TaskIterable } from './common/types';
 
 /**
  * Returns an iterator that consumes the previousIterator and process each
@@ -20,6 +20,4 @@ const makeAsyncIterable = <InContext, OutContext>(
 
 export const map = <InContext, OutContext>(
   handle: (context: InContext) => Promise<OutContext> | OutContext,
-): TaskElement<InContext, OutContext> => ({
-  pipe: makeAsyncIterable(handle),
-});
+): Task<InContext, OutContext> => makeAsyncIterable(handle);

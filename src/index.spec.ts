@@ -1,4 +1,4 @@
-import { compose, map } from './';
+import { collect, compose, map } from './';
 
 const delay = (delay: number) =>
   new Promise(resolve => setTimeout(() => resolve(), delay));
@@ -53,7 +53,7 @@ const pipelineAsync = compose(
 
 describe('Composes functions', () => {
   it('runs a pipeline with synchronous functions', async (): Promise<void> => {
-    const resultSync = await pipelineSync.run([12, 34, 67]);
+    const resultSync = await collect(pipelineSync([12, 34, 67]));
 
     expect(resultSync).toMatchObject([
       {
@@ -72,7 +72,7 @@ describe('Composes functions', () => {
   });
 
   it('runs a pipeline with ssynchronous functions', async (): Promise<void> => {
-    const resultAsync = await pipelineAsync.run([12, 34, 67]);
+    const resultAsync = await collect(pipelineAsync([12, 34, 67]));
 
     expect(resultAsync).toMatchObject([
       {
