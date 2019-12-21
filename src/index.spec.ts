@@ -1,4 +1,12 @@
-import { collect, compose, flatMap, flatten, map } from './';
+import {
+  collect,
+  compose,
+  filter,
+  filterCast,
+  flatMap,
+  flatten,
+  map,
+} from './';
 
 const delay = (delay: number) =>
   new Promise(resolve => setTimeout(() => resolve(), delay));
@@ -138,5 +146,33 @@ describe('Composes functions', () => {
       { number: 69 },
       { number: 70 },
     ]);
+  });
+
+  it('filters the elements', async (): Promise<void> => {
+    const input = [12, 34, 67];
+
+    const result = await collect(
+      filter((context: number) => context > 15)(input),
+    );
+
+    expect(result).toMatchObject([34, 67]);
+  });
+
+  it('filters the elements and casts them', async (): Promise<void> => {
+    interface SomeType {
+      value: number;
+    }
+
+    const pipeline = compose(
+      filterCast(
+        (context: number | SomeType): context is SomeType =>
+          typeof context !== 'number',
+      ),
+      map(context => context.value),
+    );
+
+    const result = await collect(pipeline([12, { value: 78 }, 67]));
+
+    expect(result).toMatchObject([78]);
   });
 });

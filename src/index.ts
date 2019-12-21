@@ -1,5 +1,7 @@
 export { collect } from './collect';
 export { compose } from './compose';
+export { filter } from './filter';
+export { filterCast } from './filterCast';
 export { flatMap } from './flatMap';
 export { flatten } from './flatten';
 export { map } from './map';
