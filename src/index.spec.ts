@@ -29,9 +29,10 @@ describe('Composes functions', () => {
         clean: `${context.clean} ${context.clean}`,
         yolo: context.hi,
       })),
+      collect,
     );
 
-    const result = await collect(pipeline([12, 34, 67]));
+    const result = await pipeline([12, 34, 67]);
 
     expect(result).toMatchObject([
       {
@@ -82,9 +83,10 @@ describe('Composes functions', () => {
           hi: context.hi,
         };
       }),
+      collect,
     );
 
-    const result = await collect(pipeline([12, 34, 67]));
+    const result = await pipeline([12, 34, 67]);
 
     expect(result).toMatchObject([
       {
@@ -110,9 +112,10 @@ describe('Composes functions', () => {
       map((context: number) => [context + 1, context + 2, context + 3]),
       flatten(),
       map(number => ({ number })),
+      collect,
     );
 
-    const result = await collect(pipeline([12, 34, 67]));
+    const result = await pipeline([12, 34, 67]);
 
     expect(result).toMatchObject([
       { number: 13 },
@@ -131,9 +134,10 @@ describe('Composes functions', () => {
     const pipeline = compose(
       map((context: number) => [context + 1, context + 2, context + 3]),
       flatMap(number => ({ number })),
+      collect,
     );
 
-    const result = await collect(pipeline([12, 34, 67]));
+    const result = await pipeline([12, 34, 67]);
 
     expect(result).toMatchObject([
       { number: 13 },
@@ -169,9 +173,10 @@ describe('Composes functions', () => {
           typeof context !== 'number',
       ),
       map(context => context.value),
+      collect,
     );
 
-    const result = await collect(pipeline([12, { value: 78 }, 67]));
+    const result = await pipeline([12, { value: 78 }, 67]);
 
     expect(result).toMatchObject([78]);
   });
